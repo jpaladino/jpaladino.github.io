@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+  background-color: black
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: white;
+  shape-rendering: crispEdges;
+}
+.tick text {
+  fill: white;
+}
+
+.x.axis path {
+  display: none
+  sroke: white;
+}
+.x.axis text {
+  fill: white;
+}
+
+.line {
+  fill: none;
+  stroke: white;
+  stroke-width: 1.5px;
+}
+.ylabel {
+  fill: white;
+}
+
+
+
+
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 20},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+//var parseDate1 = d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse;
+var parseDate = d3.time.format("%d-%b-%y").parse;
+
+var x = d3.time.scale()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); })
+    //.interpolate("basis")
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("oakshots2.csv", function(error, data) {
+  
+ 
+  data.forEach(function(d) {
+    d.date = parseDate(d["date"]);
+    d.value = +d.value;
+  }); 
+  console.log(data)
+
+  // var newdata = d3.nest()
+  //   .key(function(d){ return parseDate2(d.date); })
+  //   .sortKeys(function(a,b){ return new Date(a) - new Date(b); })
+  //   .entries(data);
+
+  // newdata = newdata.map(function(d){ return {date: d.key, value: d.values.length}})
+
+  // console.log(newdata);
+
+  // var csvContent = "data:text/csv;charset=utf-8";
+  // newdata.forEach(function(infoArray, index){
+
+  //   csvContent += infoArray.date + "," + infoArray.value + "\n";
+  //   //csvContent += index < infoArray.length ? dataString+ "\n" : dataString;
+
+  // })
+
+  // var encodeUri = encodeURI(csvContent);
+  // window.open(encodeUri);
+
+  // var i = 0;
+
+  // var combined = data.reduce(function(p, c){
+  //   console.log(p, c);
+  //   if(typeof p !== "undefined"){
+  //     var previous = parseDate2(p.date);
+  //     var current  = parseDate2(c.date);
+
+  //     if(previous == current){
+  //       i++;
+  //     } else {
+  //       var j = i;
+  //       i = 0;
+  //       return {date:c.date, numberofshots: i};
+  //     }
+  //   } 
+  // })
+  
+
+ 
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain(d3.extent(data, function(d) { return d.value; }));
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("class","ylabel")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Number of Shots")
+
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line)
+      .attr("stroke-dasharray", "39000")
+      .attr("stroke-dashoffset", "39000")
+      .transition()
+      .duration(8000)
+      .attr("stroke-dashoffset", "0")
+
+  svg.append("circle")
+    .attr("cy", y(69))
+    .attr("cx", x(new Date("July 5, 2009")))
+    .attr("r", 10)
+    .style("fill", "red")
+    .style("opacity", .5);
+
+    
+
+});
+
+</script>
+</body>

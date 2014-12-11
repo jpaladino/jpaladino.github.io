@@ -66,7 +66,7 @@ var map = L.map("map", {
     zoom: 12,
     maxZoom: 15,
     minZoom: 10,
-    layers: [dark, ShotsLayer, CallsLayer]
+    layers: [dark, ShotsLayer]
 });
 
 
