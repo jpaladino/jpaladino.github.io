@@ -62,7 +62,7 @@ function popupTextCalls (feature, layer){
 
 // creates the map and sets initial view, including layers to be displayed, plus limits for zoom and maximum extent
 var map = L.map("map", {
-    center: new L.LatLng(37.795, -122.29),
+    center: new L.LatLng(37.801756, -122.232827),
     zoom: 12,
     maxZoom: 15,
     minZoom: 10,
@@ -106,3 +106,15 @@ function responsive() {
 
   // applies the function above both on initial load and window resize
    $(window).ready(responsive).resize(responsive);
+
+
+$('.leaflet-control-layers-selector').on("click", function(){
+
+    $(".legend").toggleClass("hide",null,400,"swing");
+
+});
+
+
+
+
+

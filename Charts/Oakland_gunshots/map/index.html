@@ -11,10 +11,12 @@
     
     <script src="data/shotspotter_data.js"></script>
 
+    
+
     <style>
         body {margin:0; padding:0;}
         #map {position:absolute; top:0; bottom:0; width:100%;}
-        #legend {
+        #legend, #legend2 {
             background: #ffffff;
             position: absolute;
             bottom: 30px;
@@ -30,12 +32,47 @@
             box-shadow: 0px 1px 5px rgba(153,153,153,1);
         }
         @media (max-width:767px) {
-        #legend-text {display:none;}
-        #legend {width: 140px;}
+        #legend-text, #legend-text2 {display:none;}
+        #legend, #legend2 {width: 140px;}
         }
         @media (min-width:768px) {
-        #legend-text-alt {display:none;}
+        #legend-text-alt, #legend-text-alt2 {display:none;}
         }
+
+
+        .hide{
+            opacity:0;
+            -webkit-animation: hideLegend 1s; /* Chrome, Safari, Opera */
+                    animation: hideLegend 1s;
+        }
+
+        @-webkit-keyframes hideLegend{
+                from {opacity: 1;}
+                to   {opacity: 0;}
+        }
+
+        @keyframes hideLegend{
+                from {opacity: 1;}
+                to   {opacity: 0;}
+        }
+        .leaflet-clickable{
+             
+            -webkit-animation: showDot 2s; /* Chrome, Safari, Opera */
+                    animation: showDot 2s;
+        }
+
+        @-webkit-keyframes showDot{
+                from {opacity: 0;}
+                to   {opacity: 1;}
+        }
+
+        @keyframes showDot{
+                from {opacity: 0;}
+                to   {opacity: 1;}
+        }
+        }
+
+
     </style>
 
 </head>
@@ -47,25 +84,40 @@
 
     </div>
 
-    <div id="legend">
-        <p><strong># of Gunshots:</strong></p>
+    <div id="legend" class="legend">
+        <p><strong>ShotSpotter Gunshots:</strong></p>
         <p>Low
         <span style="color:#fee5d9">▉</span>
         <span style="color:#fcae91">▉</span>
         <span style="color:#fb6a4A">▉</span>
         <span style="color:#de2d26">▉</span>
         <span style="color:#a50f15">▉</span>
+        High</p>
+        
+        <div id="legend-text">
+            <p>Each hexagon colored by number of ShotSpotter events detected, from 2008-2013. <p>Click/tap for details.</p>
+        </div>
+        <div id="legend-text-alt">
+            <p>Tap hexagons for details.</p>
+        </div>
+    </div>
 
-     
-
+    <div id="legend2" class = "legend hide">
+        <p><strong>Calls Reporting Gunfire</strong></p>
+        <p>Low
+        <span style="color:#eff3ff">▉</span>
+        <span style="color:#9ecae1">▉</span>
+        <span style="color:#6baed6">▉</span>
+        <span style="color:#3182bd">▉</span>
+        <span style="color:#08519c">▉</span>
 
 
         High</p>
         
-        <div id="legend-text">
-            <p>Each hexagon colored by number of ShotSpotter events detected, from 2008-2013. Click/tap for details.</p>
+        <div id="legend-text2">
+            <p>Each hexagon colored by number of 911 calls reporting gunfire, from 2008-2013. <p> Click/tap for details.</p>
         </div>
-        <div id="legend-text-alt">
+        <div id="legend-text-alt2">
             <p>Tap hexagons for details.</p>
         </div>
     </div>
