@@ -11,13 +11,13 @@
     
     <script src="data/shotspotter_data.js"></script>
 
-    
+
 
     <style>
         body {margin:0; padding:0;}
         #map {position:absolute; top:0; bottom:0; width:100%;}
         #legend, #legend2 {
-            background: #ffffff;
+            background: black;
             position: absolute;
             bottom: 30px;
             left: 10px;
@@ -25,6 +25,7 @@
             width: 200px;
             font-family: arial;
             font-size: small;
+            color: white;
             -webkit-border-radius:4px 4px 4px 4px;
             border-radius:4px 4px 4px 4px;
             -webkit-box-shadow: 0px 1px 5px rgba(153,153,153,1);
@@ -72,6 +73,11 @@
         }
         }
 
+        .leaflet-popup, .leaflet-popup *{
+            pointer-events: none !important;
+        }
+img.leaflet-tile{
+    pointer-events: none;}
 
     </style>
 
@@ -87,12 +93,14 @@
     <div id="legend" class="legend">
         <p><strong>ShotSpotter Gunshots:</strong></p>
         <p>Low
-        <span style="color:#fee5d9">▉</span>
-        <span style="color:#fcae91">▉</span>
-        <span style="color:#fb6a4A">▉</span>
-        <span style="color:#de2d26">▉</span>
-        <span style="color:#a50f15">▉</span>
+        <span style="color:#fef0d9">▉</span>
+        <span style="color:#fdd49e">▉</span>
+        <span style="color:#fdbb84">▉</span>
+        <span style="color:#e34a33">▉</span>
+        <span style="color:#b30000">▉</span>
         High</p>
+
+    
         
         <div id="legend-text">
             <p>Each hexagon colored by number of ShotSpotter events detected, from 2008-2013. <p>Click/tap for details.</p>

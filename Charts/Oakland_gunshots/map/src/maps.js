@@ -12,13 +12,14 @@ var dark = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{
 
 // functions to style the seismic risk layer
 function getShotsColor(a) {
-            return a > 156 ? "#a50f15":
-                   a > 64 ? "#de2d26" :
-                   a > 31  ? "#fb6a4A" :
-                   a > 12 ? "#fcae91" :
-                   a > 3 ? "#fcae91" :
-                   "#fee5d9";
+            return a > 156 ? "#b30000":
+                   a > 64 ? "#e34a33" :
+                   a > 31  ? "#fc8d59" :
+                   a > 12 ? "#fdbb84" :
+                   a > 3 ? "#fdd49e" :
+                   "#fef0d9";
             }
+
 function getCallsColor(a) {
             return a > 156 ? "#08519c":
                    a > 64 ? "#3182bd" :
@@ -50,15 +51,27 @@ function getCallsStyle(feature) {
                     fillOpacity: 0.7
                 };
             }
-var ShotsLayer = L.geoJson(shotspotter, {style:getShotsStyle, onEachFeature:popupTextShots});
+var ShotsLayer = L.geoJson(shotspotter, {style:getShotsStyle, onEachFeature: popupTextShots});
 var CallsLayer = L.geoJson(calls, {style:getCallsStyle, onEachFeature:popupTextCalls});
 
+// ShotsLayer.on("mouseover",function (e){
+//     e.layer.openPopup();
+// })
+
 function popupTextShots (feature, layer){
-    layer.bindPopup("<strong>Number of Gunshots Detected: </strong>"+ feature.properties.PNTCNT)
+    layer.bindPopup("<strong>Number of Gunshots Detected: </strong>"+ feature.properties.PNTCNT);
+    layer.on("mouseover", function(e){
+        this.openPopup();
+    });
 }
 function popupTextCalls (feature, layer){
     layer.bindPopup("<strong>Calls Reporting Gunfire: </strong>"+ feature.properties.PNTCNT)
+    layer.on("mouseover", function(e){
+        this.openPopup()
+        e.layer.bindPopup(popupContent, {offset: new L.Point(0, 10)})
+});
 }
+
 
 // creates the map and sets initial view, including layers to be displayed, plus limits for zoom and maximum extent
 var map = L.map("map", {
