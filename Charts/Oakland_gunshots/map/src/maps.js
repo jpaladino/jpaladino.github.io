@@ -12,7 +12,7 @@ var dark = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{
 
 // functions to style the seismic risk layer
 function getShotsColor(a) {
-            return a > 156 ? "#b30000":
+            return a > 156 ? "#b30000" :
                    a > 64 ? "#e34a33" :
                    a > 31  ? "#fc8d59" :
                    a > 12 ? "#fdbb84" :
@@ -59,17 +59,22 @@ var CallsLayer = L.geoJson(calls, {style:getCallsStyle, onEachFeature:popupTextC
 // })
 
 function popupTextShots (feature, layer){
-    layer.bindPopup("<strong>Number of Gunshots Detected: </strong>"+ feature.properties.PNTCNT);
+    layer.bindPopup("<strong>Number of Gunshots Detected: </strong>"+ feature.properties.PNTCNT, {offset: new L.point(-8, 0)});
     layer.on("mouseover", function(e){
         this.openPopup();
     });
+    layer.on("mouseout", function(e){
+        this.closePopup();
+    });
 }
 function popupTextCalls (feature, layer){
-    layer.bindPopup("<strong>Calls Reporting Gunfire: </strong>"+ feature.properties.PNTCNT)
+    layer.bindPopup("<strong>Calls Reporting Gunfire: </strong>"+ feature.properties.PNTCNT, {offset: new L.point(-8, 0)});
     layer.on("mouseover", function(e){
-        this.openPopup()
-        e.layer.bindPopup(popupContent, {offset: new L.Point(0, 10)})
-});
+        this.openPopup();
+        });
+    layer.on("mouseout", function(e){
+        this.closePopup();
+    });
 }
 
 

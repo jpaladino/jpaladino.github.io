@@ -48,13 +48,13 @@
         }
 
         @-webkit-keyframes hideLegend{
-                from {opacity: 1;}
-                to   {opacity: 0;}
+                from {opacity: 1; display:block;}
+                to   {opacity: 0; display: none;}
         }
 
         @keyframes hideLegend{
-                from {opacity: 1;}
-                to   {opacity: 0;}
+                from {opacity: 1;display: block;}
+                to   {opacity: 0;display: none;}
         }
         .leaflet-clickable{
              
@@ -63,13 +63,13 @@
         }
 
         @-webkit-keyframes showDot{
-                from {opacity: 0;}
-                to   {opacity: 1;}
+                from {opacity: 0; display: none;}
+                to   {opacity: 1; display: block;}
         }
 
         @keyframes showDot{
-                from {opacity: 0;}
-                to   {opacity: 1;}
+                from {opacity: 0;display: none;}
+                to   {opacity: 1;display: block;}
         }
         }
 
